@@ -6,7 +6,7 @@
 
 var PassThrough = require('readable-stream').PassThrough;
 var tryit = require('tryit');
-var imageSize = require('image-size');
+var imageSize = require('image-size').imageSize;
 
 var DEFAULT_LIMIT = 128 * 1024;
 

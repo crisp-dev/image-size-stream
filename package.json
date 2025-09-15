@@ -42,7 +42,7 @@
     "svg"
   ],
   "dependencies": {
-    "image-size": "1.1.1",
+    "image-size": "2.0.2",
     "readable-stream": "^1.0.33",
     "tryit": "^1.0.1"
   },

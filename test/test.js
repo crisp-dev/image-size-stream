@@ -13,12 +13,13 @@ describe('imageSizeStream', function() {
   });
 
   it('should detect the dimensions of an image.', function(done) {
-    var req = http.get('http://placecats.com/1200/800', function(res) {
+    var req = http.get('http://placecats.com/800/600', function(res) {
       res.pipe(imageSizeStream().on('size', function(dimensions) {
         req.abort();
+        console.log('dimensions', dimensions);
         assert.deepEqual(dimensions, {
-          width: 1200,
-          height: 800,
+          width: 800,
+          height: 600,
           type: 'jpg'
         });
         done();
@@ -91,7 +92,7 @@ describe('imageSizeStream', function() {
     imageSizeStream()
     .on('error', function(err) {
       assert.equal(err.name, 'TypeError');
-      assert.equal(err.message, 'unsupported file type: undefined (file: undefined)');
+      assert.equal(err.message, 'unsupported file type: undefined');
       done();
     })
     .end(' ');
@@ -101,7 +102,7 @@ describe('imageSizeStream', function() {
     var stream = imageSizeStream()
     .on('error', function(err) {
       assert.equal(err.name, 'TypeError');
-      assert.equal(err.message, 'unsupported file type: undefined (file: undefined)');
+      assert.equal(err.message, 'unsupported file type: undefined');
       done();
     });
 
@@ -119,7 +120,7 @@ describe('imageSizeStream', function() {
     stream.pipe(imageSizeStream().on('error', function(err) {
       stream.destroy();
       assert.equal(err.name, 'TypeError');
-      assert.ok(/Invalid JPG/.test(err.message));
+      assert.ok(/Corrupt JPG/.test(err.message));
       done();
     }));
   });
